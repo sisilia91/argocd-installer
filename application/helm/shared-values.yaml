@@ -3,16 +3,16 @@ spec:
     # description
     # https연결만 사용 가능합니다.
     # gitlab의 경우, url 마지막에 '.git' suffix를 붙여주셔야 합니다
-    repoURL: https://github.com/tmax-cloud/argocd-installer
+    repoURL: https://github.com/sisilia91/argocd-installer
     # description: target branch or release name
-    targetRevision: HEAD
+    targetRevision: DB_install
     
 global:
   network:
     # 폐쇄망일경우 true
     disabled: false
   domain: testdomain.com
-  keycloak:
+  keycloak: hyperauth.testdomain.com
     domain: testauth.testdomain.com
     # Do not change value of tmaxClientSecret!
     tmaxClientSecret: tmax_client_secret
