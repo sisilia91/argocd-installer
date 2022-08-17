@@ -1,0 +1,222 @@
+spec:
+  destination:
+    # type: server
+    # clusterInfo: https://kubernetes.default.svc
+    type: name
+    clusterInfo: in-cluster
+    label: master
+  project: default
+
+global:
+  # 기본시나리오에서는 privateRegistry값만 변경해주면 된다
+  # e.x) 172.22.6.2:5000 or hyperregistry.domain.com
+  privateRegistry: 192.168.9.12:5000
+  # 값 변경 필요 없음
+  adminUser: admin@tmax.co.kr
+  cluster: master
+  clusterName: in-cluster
+  clusterNamespace: default
+
+modules:
+  ### gateway-bootstrap
+  gatewayBootstrap:
+    enabled: true
+    svc_type: LoadBalancer
+    tls:
+      selfsigned:
+        enabled: true
+      # acme로 할 경우, domain에 입력한 주소를 가지고 있어야함
+      acme:
+        enabled: false
+        email: test@tmax.co.kr
+        dns:
+          type: route53
+          accessKeyID: accesskey
+          accessKeySecret: secretkey
+          hostedZoneID: hostedzoneid
+        environment: production
+    certManager:
+      enabled: true
+      # default 300
+      syncWaitTime: 0
+    console:
+      enabled: true
+      multiCluster:
+        enabled: true
+      # default 0
+      syncWaitTime: 0
+      subdomain: shkim-console
+    gateway:
+      enabled: true
+      # default 120
+      syncWaitTime: 120
+    jwtDecodeAuth:
+      enabled: true
+      # default 30
+      syncWaitTime: 30
+    monitoringIngressroute:
+      enabled: true
+
+  ### strimzi-kafka-operator
+  strimziKafka:
+    enabled: true
+
+  ### hyperauth
+  hyperAuth:
+    enabled: true
+    svcType: Ingress
+    subdomain: hyperauth
+
+  ### efk
+  efk:
+    enabled: true
+    es:
+      version: 7.2.1
+      limitMemory: 8Gi
+      requestMemory: 5Gi
+      jvmHeap: "-Xms4g -Xmx4g"
+      volumeSize: 50Gi
+    busyBox:
+      version: 1.32.0
+    kibana:
+      version: 7.2.0
+      svcType: ClusterIP
+      subdomain: kibana
+    gatekeeper:
+      version: 10.0.0
+    fluentd:
+      version: v1.4.2-debian-elasticsearch-1.1
+  
+  ### opensearch
+  opensearch:
+    enabled: true
+    os:
+      version: 1.2.3
+      limitMemory: 8Gi
+      requestMemory: 5Gi
+      jvmHeap: "-Xms4g -Xmx4g"
+      volumeSize: 50Gi
+    busyBox:
+      version: 1.32.0
+    dashboard:
+      version: 1.2.0
+      svcType: ClusterIP
+      subdomain: opensearch-dashboard
+    fluentd:
+      version: v1.4.2-debian-elasticsearch-1.1
+
+  ### prometheus
+  prometheus:
+    enabled: true
+    versions:
+      prometheus: v2.30.3
+      cmReload: v0.0.1
+      cmReloader: v0.51.2
+      operator: v0.51.2
+      alertManager: v0.23.0
+      kubeRbacProxy: v0.11.0
+      kubeStateMetrics: v2.2.3
+      nodeExporter: v1.2.2
+      adapter: v0.9.1
+    pvcSize: 10Gi
+
+  ### grafana
+  grafana:
+    enabled: true
+    pvcSize: 10Gi
+    version: 6.4.3
+    imageRepo: grafana/grafana
+    subdomain: grafana
+
+  ### service-mesh
+  serviceMesh:
+    ### istio
+    istio:
+      enabled: true
+
+    ### jaeger
+    jaeger:
+      enabled: true
+      subdomain: jaeger
+
+    ### kiali
+    kiali:
+      enabled: true
+      subdomain: kiali
+
+  ### cluster-api
+  capi:
+    enabled: false
+    providers:
+      aws:
+        enabled: false
+        # description: ...
+        credentials: "credential"
+      vsphere:
+        enabled: false
+        credentials: 
+          username: "user"
+          password: "password"
+  
+  ### template service broker
+  tsb:
+    enabled: true
+    version: 0.1.4
+    clusterTsb:
+      version: 0.1.4
+    templateOperator:
+      version: 0.2.7
+
+  ### catalog controller
+  catalogController:
+    enabled: true
+
+  ### hypercloud
+  hyperCloud:
+    enabled: true
+    # description: 'single' or 'multi'
+    mode: multi
+    kafka:
+      enabled: true
+
+  ### hyperregistry
+  hyperregistry:
+    enabled: true
+    core:
+      subdomain: hyperregistry
+    notary:
+      subdomain: hyperregistry-notary
+    storageClass: nfs
+
+  ### tekton pipeline
+  tektonPipeline:
+    enabled: true
+    #namespace: tekton-pipelines
+
+  ### tekton trigger
+  tektonTrigger:
+    enabled: true
+
+  ### cicd operator
+  cicd:
+    enabled: true
+    subdomain: cicd-webhook
+
+  ### redis-operator
+  redis:
+    enabled: true
+
+  ### image validating webhook
+  imageValidatingWebhook:
+    enabled: true
+
+  ### ai-devops
+  aiDevops:
+    enabled: true
+    namespace: "kubeflow"
+    knativeNamespace: "knative-serving"
+    notebookSvcType: "Ingress"
+  job:
+      imagePullSecrets: []
+#      imagePullSecrets:
+#        - name: regcred
