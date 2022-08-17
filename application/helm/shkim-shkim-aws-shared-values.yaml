@@ -5,7 +5,7 @@ spec:
     # gitlab의 경우, url 마지막에 '.git' suffix를 붙여주셔야 합니다
     repoURL: https://github.com/sisilia91/argocd-installer
     # description: target branch or release name
-    targetRevision: test-env
+    targetRevision: test-main
     
 global:
   network:
