@@ -3,24 +3,30 @@ function (
 )
 
 local parseDuration(duration) = {
-  local getUnitValue(c) = 
-    local parts = std.split(duration, c);
-    local lastPart = parts[0];
-    if std.length(parts) > 1
-    then std.parseInt(lastPart)
-    else 0,
-    
-  hours: getUnitValue("h"),
-  minutes: getUnitValue("m"),
-  seconds: getUnitValue("s"),
+    local unitValues = {
+        h: 3600,
+        m: 60,
+        s: 1
+    },
 
-  totalSeconds: function() $.hours * 3600 + $.minutes * 60 + $.seconds,
+    parsed: {
+        local extractValue(c) = {
+            local pos = std.find(c, duration);
+            if pos == null then 0
+            else std.parseInt(std.substr(duration, 0, pos))
+        },
+        h: extractValue("h"),
+        m: extractValue("m"),
+        s: extractValue("s"),
+    },
+
+    totalSeconds: self.parsed.h * unitValues.h + self.parsed.m * unitValues.m + self.parsed.s * unitValues.s,
   
-  finalHours: self.totalSeconds() / 3600,
-  finalMinutes: (self.totalSeconds() % 3600) / 60,
-  finalSeconds: self.totalSeconds() % 60,
+    finalHours: self.totalSeconds / unitValues.h,
+    finalMinutes: (self.totalSeconds % unitValues.h) / unitValues.m,
+    finalSeconds: self.totalSeconds % unitValues.s,
 
-  formattedDuration: std.sprintf("%dh%dm%ds", [$.finalHours, $.finalMinutes, $.finalSeconds]),
+    formattedDuration: std.sprintf("%dh%dm%ds", [self.finalHours, self.finalMinutes, self.finalSeconds]),
 };
 
 [
