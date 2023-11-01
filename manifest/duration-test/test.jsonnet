@@ -11,8 +11,8 @@ local parseDuration(duration) = {
   
   totalSeconds: function() $.hours * 3600 + $.minutes * 60 + $.seconds,
   
-  finalHours: std.div(self.totalSeconds(), 3600),
-  finalMinutes: std.div(self.totalSeconds() % 3600, 60),
+  finalHours: self.totalSeconds() / 3600,
+  finalMinutes: (self.totalSeconds() % 3600) / 60,
   finalSeconds: self.totalSeconds() % 60,
   
   formattedDuration: std.strReplace(std.strReplace("%dh%dm%ds", "%d", std.toString($.finalHours)), "%d", std.toString($.finalMinutes)),
