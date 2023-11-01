@@ -1,3 +1,25 @@
+{{- $duration := .Values.duration }}
+{{- $hours := regexFind "([0-9]+)h" $duration }}
+{{- $minutes := regexFind "([0-9]+)m" $duration }}
+{{- $seconds := regexFind "([0-9]+)s" $duration }}
+
+{{- $totalSeconds := 0 }}
+
+{{- if $hours }}
+  {{- $totalSeconds = add $totalSeconds (mul ((regexReplaceAll "h" $hours "")) 3600) }}
+{{- end }}
+
+{{- if $minutes }}
+  {{- $totalSeconds = add $totalSeconds (mul ((regexReplaceAll "m" $minutes "")) 60) }}
+{{- end }}
+
+{{- if $seconds }}
+  {{- $totalSeconds = add $totalSeconds ((regexReplaceAll "s" $seconds "")) }}
+{{- end }}
+
+{{- $finalHours := div $totalSeconds 3600 }}
+{{- $finalMinutes := div (mod $totalSeconds 3600) 60 }}
+{{- $finalSeconds := mod $totalSeconds 60 }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -6,31 +28,7 @@ metadata:
 spec:
   secretName: dashboards-secret
   commonName: dashboards
-  duration: |
-    {{- $duration := .Values.duration }} 
-    {{- $hours := regexFind "([0-9]+)h" $duration }}
-    {{- $minutes := regexFind "([0-9]+)m" $duration }}
-    {{- $seconds := regexFind "([0-9]+)s" $duration }}
-
-    {{- $totalSeconds := 0 }}
-
-    {{- if $hours }}
-        {{- $totalSeconds = add $totalSeconds (mul (toInt (regexReplaceAll "h" $hours "")) 3600) }}
-    {{- end }}
-
-    {{- if $minutes }}
-        {{- $totalSeconds = add $totalSeconds (mul (toInt (regexReplaceAll "m" $minutes "")) 60) }}
-    {{- end }}
-
-    {{- if $seconds }}
-        {{- $totalSeconds = add $totalSeconds (toInt (regexReplaceAll "s" $seconds "")) }}
-    {{- end }}
-
-    {{- $finalHours := div $totalSeconds 3600 }}
-    {{- $finalMinutes := div (mod $totalSeconds 3600) 60 }}
-    {{- $finalSeconds := mod $totalSeconds 60 }}
-
-    {{- printf "%dh%dm%ds" $finalHours $finalMinutes $finalSeconds }}
+  duration: {{ printf "%dh%dm%ds" $finalHours $finalMinutes $finalSeconds }}
   privateKey:
     algorithm: RSA
     encoding: PKCS8
