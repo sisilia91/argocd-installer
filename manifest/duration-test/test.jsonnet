@@ -3,19 +3,24 @@ function (
 )
 
 local parseDuration(duration) = {
-  local splitByChar(c) = [std.parseInt(s) for s in std.split(duration, c) if s != "" && std.length(s) > 0],
-  
-  hours: if std.setMember("h", std.stringChars(duration)) then splitByChar("h")[0] else 0,
-  minutes: if std.setMember("m", std.stringChars(duration)) then splitByChar("m")[0] else 0,
-  seconds: if std.setMember("s", std.stringChars(duration)) then splitByChar("s")[0] else 0,
-  
+  local getUnitValue(c) = 
+    local parts = std.split(duration, c);
+    local lastPart = parts[0];
+    if std.length(parts) > 1
+    then std.parseInt(lastPart)
+    else 0,
+    
+  hours: getUnitValue("h"),
+  minutes: getUnitValue("m"),
+  seconds: getUnitValue("s"),
+
   totalSeconds: function() $.hours * 3600 + $.minutes * 60 + $.seconds,
   
   finalHours: self.totalSeconds() / 3600,
   finalMinutes: (self.totalSeconds() % 3600) / 60,
   finalSeconds: self.totalSeconds() % 60,
-  
-  formattedDuration: std.strReplace(std.strReplace("%dh%dm%ds", "%d", std.toString($.finalHours)), "%d", std.toString($.finalMinutes)),
+
+  formattedDuration: std.sprintf("%dh%dm%ds", [$.finalHours, $.finalMinutes, $.finalSeconds]),
 };
 
 [
