@@ -93,7 +93,7 @@ sessionStorage:
   redis:
     # Secret name that holds the redis-password and redis-sentinel-password values
     image:
-      privateRegistry: "test-registry.com"
+      privateRepository: "test-registry.com"
     existingSecret: ""
     password: ""
     # Can be one of sentinel/cluster/standalone
