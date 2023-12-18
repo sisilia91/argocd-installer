@@ -5,7 +5,7 @@ Return the proper Redis image name
 */}}
 {{- define "redis.image" -}}
 {{- $origin := include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
-{{- print "%s/%s" .Values.image.privateRepository $origin -}}
+{{ printf "%s/%s" .Values.image.privateRepository $origin -}}
 {{- end -}}
 
 {{/*
