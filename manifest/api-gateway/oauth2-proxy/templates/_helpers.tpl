@@ -105,6 +105,6 @@ Compute the redis url if not set explicitly.
 {{/*
 Private Image Registry
 */}}
-{{- define image.privateRepository -}}
+{{- define "image.privateRepository" -}}
 {{- printf "%s" .Values.sessionStorage.redis.image.privateRepository -}}
 {{- end -}}
