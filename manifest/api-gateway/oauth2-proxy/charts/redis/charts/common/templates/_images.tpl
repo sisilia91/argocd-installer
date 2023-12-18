@@ -7,7 +7,7 @@ Return the proper image name
 {{- if .imageRoot.privateRepository }}
 {{- $registryName := printf "%s/%s" .imageRoot.privateRepository .imageRoot.registry -}}
 {{- else -}}
-{{- $registryName := .imageRoot.registry -}}
+{{- $registryName := printf "%s/%s" .imageRoot.privateRepository .imageRoot.registry -}}
 {{- end -}}
 {{- $repositoryName := .imageRoot.repository -}}
 {{- $tag := .imageRoot.tag | toString -}}
