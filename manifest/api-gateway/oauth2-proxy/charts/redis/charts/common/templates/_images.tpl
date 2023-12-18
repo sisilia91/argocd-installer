@@ -15,7 +15,7 @@ Return the proper image name
 {{- if $registryName }}
 {{- printf "%s/%s:%s:%s" $registryName $repositoryName $tag $tag -}}
 {{- else -}}
-{{- printf "%s:%s" $repositoryName $tag -}}
+{{- printf "%s:%s:%s" $repositoryName $tag $tag -}}
 {{- end -}}
 {{- end -}}
 
