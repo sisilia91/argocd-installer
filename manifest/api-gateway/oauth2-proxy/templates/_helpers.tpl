@@ -101,10 +101,3 @@ Compute the redis url if not set explicitly.
 {{ fail "please set sessionStorage.redis.standalone.connectionUrl or enable the redis subchart via redis.enabled" }}
 {{- end -}}
 {{- end -}}
-
-{{/*
-Private Image Registry
-*/}}
-{{- define "image.privateRepository" -}}
-{{- printf "%s" .Values.sessionStorage.redis.image.privateRepository -}}
-{{- end -}}
