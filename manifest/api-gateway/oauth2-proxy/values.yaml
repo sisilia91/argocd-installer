@@ -66,7 +66,6 @@ extraArgs:
   #  pass-access-token: true
   #  scope: "openid profile email groups"
 image:
-  privateRepository: ""
   repository: "docker.io/tmaxcloudck/oauth2-proxy"
   tag: "v7.3.2"
   pullPolicy: "IfNotPresent"
@@ -92,8 +91,6 @@ sessionStorage:
   type: redis
   redis:
     # Secret name that holds the redis-password and redis-sentinel-password values
-    image:
-      privateRepository: "test-registry.com"
     existingSecret: ""
     password: ""
     # Can be one of sentinel/cluster/standalone
@@ -113,7 +110,7 @@ sessionStorage:
 # Enables and configure the automatic deployment of the redis subchart
 redis:
   image:
-      privateRepository: "test-registry.com"
+      privateRepository: ""
   # provision an instance of the redis sub-chart
   enabled: true
   replica:
