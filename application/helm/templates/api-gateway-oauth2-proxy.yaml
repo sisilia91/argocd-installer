@@ -65,10 +65,6 @@ spec:
         {{- if .Values.global.network.disabled }}
         - name: image.repository
           value: {{ .Values.global.privateRegistry }}/docker.io/tmaxcloudck/oauth2-proxy
-        #- name: image.registry
-        #  value: {{ .Values.global.privateRegistry }}
-        - name: image.privateRepository
-          value: {{ .Values.global.privateRegistry }}
         - name: redis.image.privateRepository
           value: {{ .Values.global.privateRegistry }}
         {{- end }}
