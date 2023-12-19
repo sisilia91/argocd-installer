@@ -74,7 +74,7 @@ diagnosticMode:
 ##
 image:
   privateRepository: ""
-  registry: docker.io
+  registry: ""
   repository: bitnami/redis
   tag: 6.2.6-debian-10-r142
   ## Specify a imagePullPolicy
