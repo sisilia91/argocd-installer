@@ -61,14 +61,14 @@ data:
       versionProbe:
        container: console
     - name: HyperAuth
-      namespace:
+      namespace: hyperauth
       selector:
         matchLabels:
           statusLabel:
+          - app=hyperauth
           versionLabel:
+          - app=hyperauth
       readinessProbe:
-        httpGet:
-          path: "https://{{ .Values.global.hyperAuth.url }}/auth/realms/tmax"
     - name: Calico
       namespace: kube-system
       selector:
