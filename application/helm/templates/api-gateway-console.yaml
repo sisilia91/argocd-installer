@@ -54,7 +54,7 @@ spec:
         - name: config.k8sPublicEndpoint
           value: {{ .k8sPublicEndpoint | default "https://kubernetes.default.svc" }}
         {{- end }}
-        {{- if eq .Values.global.network.disabled true }}
+        {{- if .Values.global.network.disabled }}
         - name: image.repository
           value: {{ .Values.global.privateRegistry }}/docker.io/tmaxcloudck/hypercloud-console
         - name: busybox.image.repository
