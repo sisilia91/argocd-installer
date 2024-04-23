@@ -62,4 +62,6 @@ spec:
         {{- end }}
         - name: image.tag
           value: {{ .Values.modules.gatewayBootstrap.console.version | default "latest" }}
+        - name: test_val
+          value: {{ .Values.global.network.disabled }}
 {{- end }}
