@@ -27,8 +27,8 @@ statefulset:
 deploymentStrategy: Recreate
 image:
   # Sonatype Official Public Image
-  repository: docker.io/sonatype/nexus3
-  tag: 3.45.0
+  repository: hyperregistry.tmaxcloud.org/ck3-2/nexus3
+  tag: 3.64.0.fix
   pullPolicy: IfNotPresent
   busybox:
     repo: docker.io/busybox
