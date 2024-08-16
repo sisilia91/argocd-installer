@@ -78,8 +78,8 @@ spec:
             - mountPath: /etc/localtime
               name: timezone-config
             {{- end }}
-            - mountPath: auditlog
-              name: /opt/bridge/static/runtime-config.js
+            - mountPath: /opt/bridge/static/runtime-config.js
+              name: auditlog
               subPath: runtime-config.js
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
