@@ -62,6 +62,6 @@ spec:
         {{- end }}
         - name: image.tag
           value: {{ .Values.modules.gatewayBootstrap.console.version | default "latest" }}
-        - name: config.auditlog 
-          value: {{ .auditlog | default "true" }}  
+        - name: config.auditlog  
+          value: {{ .isNotExistAuditLog.window.__RUNTIME_CONFIG__.isNotExistAuditLog | default "true" }}  
 {{- end }}

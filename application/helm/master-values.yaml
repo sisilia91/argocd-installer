@@ -127,7 +127,10 @@ modules:
         logLevel: "info"
         # json | pretty
         logType: "pretty"
-
+      isNotExistAuditLog: 
+        window:
+          __RUNTIME_CONFIG__:
+            isNotExistAuditLog: true
     gateway:
       enabled: true
       version: v2.8.7
