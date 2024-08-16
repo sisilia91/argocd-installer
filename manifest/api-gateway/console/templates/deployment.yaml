@@ -52,6 +52,7 @@ spec:
             - --log-level={{ .logLevel | default "debug" }}
             - --log-type={{ .logType | default "pretty" }}
             - --k8s-public-endpoint={{ .k8sPublicEndpoint | default "https://kubernetes.default.svc" }}
+            - --auditlog={{ .auditlog | default "true" }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -77,6 +78,9 @@ spec:
             - mountPath: /etc/localtime
               name: timezone-config
             {{- end }}
+            - mountPath: auditlog
+              name: /opt/bridge/static/runtime-config.js
+              subPath: runtime-config.js
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -62,4 +62,6 @@ spec:
         {{- end }}
         - name: image.tag
           value: {{ .Values.modules.gatewayBootstrap.console.version | default "latest" }}
+        - name: config.auditlog 
+          value: {{ .auditlog | default "true" }}  
 {{- end }}
