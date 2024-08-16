@@ -52,7 +52,6 @@ spec:
             - --log-level={{ .logLevel | default "debug" }}
             - --log-type={{ .logType | default "pretty" }}
             - --k8s-public-endpoint={{ .k8sPublicEndpoint | default "https://kubernetes.default.svc" }}
-            - --auditlog={{ .auditlog | default "true" }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -105,3 +104,6 @@ spec:
           hostPath:
             path: "/usr/share/zoneinfo/{{ .Values.timeZone }}"
         {{- end }}
+        - name: auditlog
+          configMap:
+            name: auditlog
