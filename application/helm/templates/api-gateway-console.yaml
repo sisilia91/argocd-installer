@@ -53,7 +53,7 @@ spec:
           value: {{ .customProductName | default "HyperCloud" }}
         - name: config.k8sPublicEndpoint
           value: {{ .k8sPublicEndpoint | default "https://kubernetes.default.svc" }}
-        - name: notUseAuditlog
+        - name: config.notUseAuditlog
           value: {{ .notUseAuditlog | default "true" }}  
         {{- end }}
         {{- if eq .Values.global.network.disabled "true" }}
