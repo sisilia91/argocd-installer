@@ -124,7 +124,7 @@ modules:
         logLevel: "info"
         # json | pretty
         logType: "pretty"
-
+      notUseAuditlog: true
     gateway:
       enabled: true
       version: v2.8.7

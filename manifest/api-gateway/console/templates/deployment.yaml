@@ -77,6 +77,9 @@ spec:
             - mountPath: /etc/localtime
               name: timezone-config
             {{- end }}
+            - mountPath: /opt/bridge/static/runtime-config.js
+              name: auditlog
+              subPath: runtime-config.js
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -101,3 +104,6 @@ spec:
           hostPath:
             path: "/usr/share/zoneinfo/{{ .Values.timeZone }}"
         {{- end }}
+        - name: auditlog
+          configMap:
+            name: auditlog
