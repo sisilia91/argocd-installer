@@ -27,7 +27,7 @@ config:
   svcType: "LoadBalancer"
   logLevel: "debug"
   logType: "pretty"
-  notUseAuditlog: "true"
+  notUseAuditlog: true
 
 image:
   repository: "docker.io/tmaxcloudck/aks-console"

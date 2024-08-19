@@ -54,7 +54,7 @@ spec:
         - name: config.k8sPublicEndpoint
           value: {{ .k8sPublicEndpoint | default "https://kubernetes.default.svc" }}
         - name: config.notUseAuditlog
-          value: {{ .notUseAuditlog | default "true" }}  
+          value: {{ .notUseAuditlog | quote | default "true" }}  
         {{- end }}
         {{- if eq .Values.global.network.disabled "true" }}
         - name: image.repository
