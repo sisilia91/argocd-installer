@@ -6,5 +6,5 @@ metadata:
 data:
   runtime-config.js: |
     window.__RUNTIME_CONFIG__ = {
-        isNotExistAuditLog: {{ .Value.config.notUseAuditlog }}
+        isNotExistAuditLog: {{ .Values.config.notUseAuditlog }}
     }
